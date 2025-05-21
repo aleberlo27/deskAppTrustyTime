@@ -1,0 +1,5 @@
+<select id="language-select" (change)="changeLanguage($event)" [value]="currentLang()">
+  <option *ngFor="let lang of languages" [value]="lang" class="text-black">
+    {{ lang.toUpperCase() }}
+  </option>
+</select>

@@ -1,0 +1,38 @@
+<div class="mb-4 p-8 flex items-center justify-center">
+  <p-card
+    [style]="{ width: '25rem', overflow: 'hidden' }"
+    class="shadow-2xl dark:shadow-gray-400"
+  >
+    <ng-template #header>
+      <img
+        alt="Card"
+        class="w-full"
+        src="https://primefaces.org/cdn/primeng/images/card-ng.jpg"
+      />
+    </ng-template>
+    <ng-template #title> {{ (company$ | async)?.name }} </ng-template>
+    <ng-template #subtitle> {{ (company$ | async)?.email }}</ng-template>
+    <ng-template #footer>
+      <div class="flex gap-4 mt-1">
+        <p-button
+          label="{{ (company$ | async)?.companyCode }}"
+          severity="secondary"
+          class="w-full cursor-default select-text"
+          [outlined]="true"
+          styleClass="w-full"
+        />
+      </div>
+    </ng-template>
+  </p-card>
+</div>
+
+<footer>
+  <p-divider align="center" type="dotted">
+    <a (click)="logOut()">
+      <b>
+        <i class="pi pi-sign-out"></i>
+        {{ commonWords.logOut | translate }}
+      </b>
+    </a>
+  </p-divider>
+</footer>

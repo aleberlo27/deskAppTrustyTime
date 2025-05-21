@@ -1,0 +1,55 @@
+<div class="h-screen w-screen flex items-center justify-center">
+  <p-button (click)="showDialog()" icon="pi pi-user" label="{{ 'commonWords.email' | translate }}">
+  </p-button>
+  <p-toast></p-toast>
+  <p-dialog maskStyleClass="backdrop-blur-sm" [(visible)]="visible" styleClass="!border-0 !bg-transparent">
+      <ng-template #headless>
+          <div
+              class="flex flex-col px-8 py-8 gap-6 rounded-2xl"
+              style="border-radius: 12px; background-image: radial-gradient(circle at left top, #9cade2, #042aa5)"
+          >
+          <!--
+              <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
+                 PONER EL LOGO DE TRUSTY
+              </svg>
+               -->
+              <div class="inline-flex flex-col gap-2">
+                  <label for="email" class="text-primary-50 font-semibold">{{ commonWords.email | translate }}</label>
+                  <input
+                    pInputText id="email"
+                    class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80"
+                    [(ngModel)]="email"
+                    name="email"
+                  />
+              </div>
+              <div class="inline-flex flex-col gap-2">
+                  <label for="password" class="text-primary-50 font-semibold">{{ commonWords.password | translate }}</label>
+                  <input
+                      pInputText
+                      id="password"
+                      class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80"
+                      type="password"
+                      [(ngModel)]="password"
+                      name="password"
+                  />
+              </div>
+              <div class="flex items-center gap-4">
+                  <p-button
+                      label="{{ 'commonWords.cancel' | translate }}"
+                      (click)="closeDialog()"
+                      [text]="true"
+                      styleClass="!p-4 w-full !border !border-white/30 hover:!bg-white/10"
+                      class="w-full"
+                  />
+                  <p-button
+                      label="{{ 'commonWords.signIn' | translate }}"
+                      (click)="login()"
+                      [text]="true"
+                      styleClass="!p-4 w-full !border !border-white/30 hover:!bg-white/10"
+                      class="w-full"
+                  />
+              </div>
+          </div>
+      </ng-template>
+  </p-dialog>
+</div>

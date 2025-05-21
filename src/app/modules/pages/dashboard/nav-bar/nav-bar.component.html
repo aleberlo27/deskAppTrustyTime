@@ -1,0 +1,22 @@
+<div class="h-screen flex flex-col">
+  <!-- Tablist fijo -->
+  <div class="flex-none">
+    <p-tabs [(value)]="selectedTabIndex">
+      <p-tablist>
+        @for (tab of tabs; track tab.path) {
+          <p-tab [value]="tab.path">
+            {{ tab.titleKey | translate }}
+          </p-tab>
+        }
+      </p-tablist>
+    </p-tabs>
+  </div>
+
+  <!-- Contenido desplazable debajo del tablist -->
+  <div class="flex-1 overflow-auto">
+    <div class="tabpanel-router">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</div>
