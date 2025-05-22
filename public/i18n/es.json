@@ -10,6 +10,7 @@
     "darkMode": "Modo oscuro",
     "lightMode": "Modo claro",
     "cancel": "Cancelar",
+    "copy": "Copiado",
     "delete": "ELIMINAR",
     "confirmDelete": "Confirmar eliminación",
     "confirmDeleteMessage": "¿Estás seguro de que deseas eliminar la compañía?",
@@ -46,6 +47,8 @@
     "deleteWorkerComplete": "Trabajador eliminado correctamente.",
     "addCompanyComplete": "Compañía agregada correctamente.",
     "notCompleteFields": "Por favor, complete todos los campos.",
-    "companyDeleteNotWorkers": "Empresa eliminada, pero no se pudieron eliminar sus trabajadores."
+    "companyDeleteNotWorkers": "Empresa eliminada, pero no se pudieron eliminar sus trabajadores.",
+    "textCopied": "Texto copiado: {{text}}",
+    "textNotCopied": "No se pudo copiar al portapapeles."
   }
 }

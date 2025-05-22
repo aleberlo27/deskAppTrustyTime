@@ -10,6 +10,7 @@
     "darkMode": "Dark mode",
     "lightMode": "Light mode",
     "cancel": "Cancel",
+    "copy": "Copied",
     "delete": "DELETE",
     "confirmDelete": "Confirm delete",
     "confirmDeleteMessage": "Are you sure you want to delete the company?",
@@ -46,6 +47,8 @@
     "deleteWorkerComplete": "Worker successfully deleted.",
     "addCompanyComplete": "Company added successfully.",
     "notCompleteFields": "Please complete all fields.",
-    "companyDeleteNotWorkers": "Company delete, but its workers could not be eliminated."
+    "companyDeleteNotWorkers": "Company delete, but its workers could not be eliminated.",
+    "textCopied": "Text copied: {{text}}",
+    "textNotCopied": "Could not copy to clipboard."
   }
 }

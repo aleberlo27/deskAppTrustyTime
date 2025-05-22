@@ -4,23 +4,20 @@
     class="shadow-2xl dark:shadow-gray-400"
   >
     <ng-template #header>
-      <img
-        alt="Card"
-        class="w-full"
-        src="/logo.png"
-      />
+      <img alt="Card" class="w-full" src="/logo.png" />
     </ng-template>
     <ng-template #title> {{ (company$ | async)?.name }} </ng-template>
     <ng-template #subtitle> {{ (company$ | async)?.email }}</ng-template>
     <ng-template #footer>
-      <div class="flex gap-4 mt-1">
+      <div *ngIf="company$ | async as company">
         <p-button
-          label="{{ (company$ | async)?.companyCode }}"
+          [label]="company.companyCode"
           severity="secondary"
           class="w-full cursor-default select-text"
           [outlined]="true"
           styleClass="w-full"
-        />
+          (click)="copyToClipboard(company.companyCode)"
+        ></p-button>
       </div>
     </ng-template>
   </p-card>
@@ -36,3 +33,4 @@
     </a>
   </p-divider>
 </footer>
+<p-toast></p-toast>
