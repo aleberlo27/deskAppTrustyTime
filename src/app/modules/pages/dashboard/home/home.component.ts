@@ -39,22 +39,22 @@ export class HomeComponent {
   }
 
   public copyToClipboard(text: string | undefined) {
-  if (!text) return;
+    if (!text) return;
 
-  navigator.clipboard.writeText(text).then(() => {
-    this.messageService.add({
-      severity: 'success',
-      summary: this.translateService.instant('commonWords.copy'),
-      detail: this.translateService.instant('commonWords.textCopied', { text })
+    navigator.clipboard.writeText(text).then(() => {
+      this.messageService.add({
+        severity: 'success',
+        summary: this.translateService.instant('commonWords.copy'),
+        detail: this.translateService.instant('commonWords.textCopied', { text })
+      });
+    }).catch(() => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: this.translateService.instant('commonWords.textNotCopied')
+      });
     });
-  }).catch(() => {
-    this.messageService.add({
-      severity: 'error',
-      summary: 'Error',
-      detail: this.translateService.instant('commonWords.textNotCopied')
-    });
-  });
-}
+  }
 
   logOut() {
     this.authService.logOut();
