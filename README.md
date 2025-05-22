@@ -54,8 +54,8 @@ En este proyecto, Electron se encarga de:
 ---
 ## 🛠️ Tecnologías Utilizadas
 
-- **Electron** (vX.X)
-- **Angular** (vX.X)
+- **Electron** (v36.2.0)
+- **Angular** (v19.2.0)
 - **TypeScript**
 - **SCSS**
 - **Node.js** y **npm** para gestión de dependencias
