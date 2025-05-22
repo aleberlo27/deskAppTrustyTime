@@ -26,6 +26,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { FormsModule } from '@angular/forms';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { WorkerService } from '../../../services/worker.service';
 
 @Component({
   selector: 'app-companies',
@@ -43,7 +44,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     FormsModule,
     ToastModule,
     ConfirmDialogModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
   ],
   providers: [ConfirmationService],
   templateUrl: './companies.component.html',
@@ -54,6 +55,7 @@ export class CompaniesComponent implements OnInit {
   translateService = inject(TranslateService);
   authService = inject(AuthService);
   companyService = inject(CompanyService);
+  workerService = inject(WorkerService);
   messageService = inject(MessageService);
   router = inject(Router);
   loading = signal(true);
@@ -80,12 +82,14 @@ export class CompaniesComponent implements OnInit {
 
   confirmDelete(companyCode: string) {
     this.confirmationService.confirm({
-      message: this.translateService.instant('commonWords.confirmDeleteMessage'),
+      message: this.translateService.instant(
+        'commonWords.confirmDeleteMessage'
+      ),
       header: this.translateService.instant('commonWords.confirmDelete'),
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.deleteCompany(companyCode);
-      }
+      },
     });
   }
 
@@ -93,12 +97,11 @@ export class CompaniesComponent implements OnInit {
     this.loading.set(true);
     this.authService.getAllCompanies().subscribe({
       next: (companies) => {
-      (this.companies = companies),
-      this.loading.set(false);
+        (this.companies = companies), this.loading.set(false);
       },
-      error: (err) =>{
+      error: (err) => {
         this.loading.set(false);
-      }
+      },
     });
   }
 
@@ -114,12 +117,12 @@ export class CompaniesComponent implements OnInit {
       !this.companyData.companyCode ||
       !this.companyData.email ||
       !this.companyData.password ||
-    !this.companyData.password2
+      !this.companyData.password2
     ) {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: this.translateService.instant('commonWords.notCompleteFields')
+        detail: this.translateService.instant('commonWords.notCompleteFields'),
       });
       return;
     }
@@ -128,7 +131,7 @@ export class CompaniesComponent implements OnInit {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: this.translateService.instant('commonWords.passwordMismatch')
+        detail: this.translateService.instant('commonWords.passwordMismatch'),
       });
       return;
     }
@@ -139,7 +142,7 @@ export class CompaniesComponent implements OnInit {
       this.messageService.add({
         severity: 'success',
         summary: this.translateService.instant('commonWords.success'),
-        detail: this.translateService.instant('commonWords.addCompanyComplete')
+        detail: this.translateService.instant('commonWords.addCompanyComplete'),
       });
       this.companyData = {
         id: '',
@@ -165,30 +168,44 @@ export class CompaniesComponent implements OnInit {
         },
         error: (err) => {
           this.loading.set(false);
-        }
+        },
       });
     }, 2000);
   }
 
   deleteCompany(companyCode: string) {
     this.companyService.deleteCompany(companyCode).subscribe({
-    next: () => {
-      this.messageService.add({
-        severity: 'success',
-        summary: this.translateService.instant('commonWords.success'),
-        detail: this.translateService.instant('commonWords.deleteCompanyComplete')
-      });
+      next: () => {
+        this.workerService.deleteWorkersByCompanyCode(companyCode).subscribe({
+          next: () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: this.translateService.instant('commonWords.success'),
+              detail: this.translateService.instant(
+                'commonWords.deleteCompanyComplete'
+              ),
+            });
 
-      // Actualizamos la lista local eliminando la compañía borrada
-      this.companies = this.companies.filter(c => c.companyCode !== companyCode);
-    },
-    error: (error) => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: this.translateService.instant('commonWords.deleteCompany')
-      });
-    }
-  });
+            this.companies = this.companies.filter(
+              (c) => c.companyCode !== companyCode
+            );
+          },
+          error: () => {
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Advertencia',
+              detail: this.translateService.instant('commonWords.companyDeleteNotWorkers'),
+            });
+          },
+        });
+      },
+      error: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: this.translateService.instant('commonWords.deleteCompany'),
+        });
+      },
+    });
   }
 }

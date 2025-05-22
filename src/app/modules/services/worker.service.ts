@@ -17,4 +17,8 @@ export class WorkerService {
   getSchedulesByWorkerId(id: string): Observable<WorkerScheduleResponse> {
     return this.http.get<WorkerScheduleResponse>(`${baseUrl}/worker/${id}/schedules`);
   }
+
+  deleteWorkersByCompanyCode(companyCode: string): Observable<any> {
+    return this.http.delete(`${baseUrl}/workers/company/${companyCode}`);
+  }
 }

@@ -41,6 +41,7 @@
     "deleteCompany": "No se pudo eliminar la compañía.",
     "deleteCompanyComplete": "Compañía eliminada correctamente.",
     "addCompanyComplete": "Compañía agregada correctamente.",
-    "notCompleteFields": "Por favor, complete todos los campos."
+    "notCompleteFields": "Por favor, complete todos los campos.",
+    "companyDeleteNotWorkers": "Empresa eliminada, pero no se pudieron eliminar sus trabajadores."
   }
 }

@@ -41,6 +41,7 @@
     "deleteCompany": "The company could not be deleted.",
     "deleteCompanyComplete": "Company successfully deleted.",
     "addCompanyComplete": "Company added successfully.",
-    "notCompleteFields": "Please complete all fields."
+    "notCompleteFields": "Please complete all fields.",
+    "companyDeleteNotWorkers": "Company delete, but its workers could not be eliminated."
   }
 }
