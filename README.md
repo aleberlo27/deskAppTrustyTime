@@ -94,4 +94,5 @@ Puedes añadir notificaciones de escritorio, sincronización offline y funcional
 
 ## 🧑‍💻 Desarrollado por
 Alejandra Bernal López
+
 Para sugerencias, mejoras o errores, ¡no dudes en contactarnos o abrir un issue!
