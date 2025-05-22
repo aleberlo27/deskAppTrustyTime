@@ -31,12 +31,14 @@ En este proyecto, Electron se encarga de:
 - **Empresa**:
   - Ingreso mediante login empresarial.
   - Visualización de **empleados registrados**.
+  - Eliminación de empleados registrados.
   - Consulta de **turnos marcados por los empleados** en fechas específicas.
   
 - **Administrador**:
   - Ingreso como superusuario.
   - Gestión de **empresas registradas** en la aplicación.
   - Creación de nuevas empresas mediante formulario.
+  - Eliminación de empresas y sus trabajadores correspondientes.
 
 ---
 
