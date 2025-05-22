@@ -9,14 +9,32 @@
       >
         <ng-template #header>
           <tr>
-            <th style="width: 20%; color: #4a70d6; font-weight: bold;">{{ commonWords.name | translate }}</th>
-            <th style="width: 20%; color: #4a70d6; font-weight: bold;">{{ commonWords.lastName | translate }}</th>
-            <th style="width: 20%; color: #4a70d6; font-weight: bold;">{{ commonWords.emailUser | translate }}</th>
-            <th style="width: 20%; color: #4a70d6; font-weight: bold;">{{ commonWords.turn | translate }}</th>
-            <th style="width: 20%; color: #4a70d6; font-weight: bold;">{{ commonWords.schedules | translate }}</th>
+            <th style="width: 20%; color: #4a70d6; font-weight: bold">
+              {{ commonWords.name | translate }}
+            </th>
+            <th style="width: 20%; color: #4a70d6; font-weight: bold">
+              {{ commonWords.lastName | translate }}
+            </th>
+            <th style="width: 20%; color: #4a70d6; font-weight: bold">
+              {{ commonWords.emailUser | translate }}
+            </th>
+            <th style="width: 20%; color: #4a70d6; font-weight: bold">
+              {{ commonWords.turn | translate }}
+            </th>
+            <th style="width: 20%; color: #4a70d6; font-weight: bold">
+              {{ commonWords.schedules | translate }}
+            </th>
+            <th style="width: 10%; color: #4a70d6; font-weight: bold">
+              {{ commonWords.delete | translate }}
+            </th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-worker let-editing="editing" let-ri="rowIndex">
+        <ng-template
+          pTemplate="body"
+          let-worker
+          let-editing="editing"
+          let-ri="rowIndex"
+        >
           <tr [pEditableRow]="worker">
             <td>
               <p-cellEditor>
@@ -50,7 +68,11 @@
             </td>
             <td>
               <p-tag
-                [value]="isWorkingNow(worker) ? commonWords.inTurn : commonWords.outOfTurn"
+                [value]="
+                  isWorkingNow(worker)
+                    ? commonWords.inTurn
+                    : commonWords.outOfTurn
+                "
                 [severity]="isWorkingNow(worker) ? 'success' : 'danger'"
               ></p-tag>
             </td>
@@ -70,33 +92,64 @@
                 ></button>
               </div>
             </td>
+            <td>
+              <button
+                pButton
+                icon="pi pi-trash"
+                class="p-button-rounded p-button-danger"
+                tooltip="Eliminar trabajador"
+                (click)="deleteWorker(worker.id)"
+              ></button>
+            </td>
           </tr>
         </ng-template>
       </p-table>
       @if (loading()) {
-        <div class="absolute inset-0 flex justify-center items-center bg-transparent">
-          <p-progress-spinner ariaLabel="loading"></p-progress-spinner>
-        </div>
+      <div
+        class="absolute inset-0 flex justify-center items-center bg-transparent"
+      >
+        <p-progress-spinner ariaLabel="loading"></p-progress-spinner>
+      </div>
       }
-
     </div>
   </p-scrollpanel>
-  <div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 flex gap-4 px-4">
+  <div
+    class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 flex gap-4 px-4"
+  >
     <!-- Botón fijo para actualizar la lista de trabajadores -->
-    <p-button icon="pi pi-refresh" [rounded]="true" [text]="true" [raised]="true" (click)="refreshWorkers()" label="{{commonWords.refreshList}}"></p-button>
+    <p-button
+      icon="pi pi-refresh"
+      [rounded]="true"
+      [text]="true"
+      [raised]="true"
+      (click)="refreshWorkers()"
+      label="{{ commonWords.refreshList }}"
+    ></p-button>
   </div>
-
 </div>
 
-
 <!-- Diálogo para mostrar los horarios del trabajador -->
-<p-dialog [(visible)]="dialogVisible" [modal]="true" [closable]="true" [style]="{width: '50vw'}" header="{{commonWords.schedulesOf}} {{ selectedWorker?.firstName }} {{ selectedWorker?.lastName }}">
+<p-dialog
+  [(visible)]="dialogVisible"
+  [modal]="true"
+  [closable]="true"
+  [style]="{ width: '50vw' }"
+  header="{{ commonWords.schedulesOf }} {{ selectedWorker?.firstName }} {{
+    selectedWorker?.lastName
+  }}"
+>
   <p-table [value]="selectedSchedules" [tableStyle]="{ 'min-width': '30rem' }">
     <ng-template #header>
       <tr>
-        <th style="width: 30%; color: #4a70d6; font-weight: bold;">{{ commonWords.date | translate }}</th>
-        <th style="width: 30%; color: #4a70d6; font-weight: bold;">{{ commonWords.start | translate }}</th>
-        <th style="width: 30%; color: #4a70d6; font-weight: bold;">{{ commonWords.end | translate }}</th>
+        <th style="width: 30%; color: #4a70d6; font-weight: bold">
+          {{ commonWords.date | translate }}
+        </th>
+        <th style="width: 30%; color: #4a70d6; font-weight: bold">
+          {{ commonWords.start | translate }}
+        </th>
+        <th style="width: 30%; color: #4a70d6; font-weight: bold">
+          {{ commonWords.end | translate }}
+        </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-schedule>
@@ -108,3 +161,6 @@
     </ng-template>
   </p-table>
 </p-dialog>
+
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>

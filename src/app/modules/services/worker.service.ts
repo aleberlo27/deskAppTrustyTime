@@ -21,4 +21,8 @@ export class WorkerService {
   deleteWorkersByCompanyCode(companyCode: string): Observable<any> {
     return this.http.delete(`${baseUrl}/workers/company/${companyCode}`);
   }
+
+  deleteWorkerById(id: string): Observable<void> {
+    return this.http.delete<void>(`${baseUrl}/worker/${id}`);
+  }
 }
