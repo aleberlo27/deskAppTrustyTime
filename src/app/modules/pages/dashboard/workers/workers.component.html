@@ -81,7 +81,7 @@
 
     </div>
   </p-scrollpanel>
-  <div style="position: fixed; bottom: 20px; left: 0; width: 100%; z-index: 1000;" class="flex justify-center gap-4 px-4">
+  <div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 flex gap-4 px-4">
     <!-- Botón fijo para actualizar la lista de trabajadores -->
     <p-button icon="pi pi-refresh" [rounded]="true" [text]="true" [raised]="true" (click)="refreshWorkers()" label="{{commonWords.refreshList}}"></p-button>
   </div>
