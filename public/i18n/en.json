@@ -1,11 +1,16 @@
 {
   "commonWords": {
     "login": "Login",
+    "success": "success",
+    "yes": "Yes",
     "email": "Email",
     "password": "Password",
     "darkMode": "Dark mode",
     "lightMode": "Light mode",
     "cancel": "Cancel",
+    "delete": "Delete",
+    "confirmDelete": "Confirm delete",
+    "confirmDeleteMessage": "Are you sure you want to delete the company?",
     "save": "Save",
     "signIn": "Sign-In",
     "dashboard": "Control panel",
@@ -30,6 +35,10 @@
     "companyInformation": "Enter the company's information.",
     "companyName": "Company name",
     "companyCode": "Company code",
-    "refreshList": "Refresh list"
+    "refreshList": "Refresh list",
+    "deleteCompany": "The company could not be deleted.",
+    "deleteCompanyComplete": "Company successfully deleted.",
+    "addCompanyComplete": "Company added successfully.",
+    "notCompleteFields": "Please complete all fields."
   }
 }

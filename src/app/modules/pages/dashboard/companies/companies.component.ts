@@ -12,7 +12,7 @@ import { RatingModule } from 'primeng/rating';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
-import { SelectItem, MessageService } from 'primeng/api';
+import { SelectItem, MessageService, ConfirmationService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { SelectModule } from 'primeng/select';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -25,6 +25,7 @@ import { CompanyService } from '../../../services/company.service';
 import { DialogModule } from 'primeng/dialog';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { FormsModule } from '@angular/forms';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-companies',
@@ -41,8 +42,10 @@ import { FormsModule } from '@angular/forms';
     DialogModule,
     FormsModule,
     ToastModule,
+    ConfirmDialogModule,
     ProgressSpinnerModule
   ],
+  providers: [ConfirmationService],
   templateUrl: './companies.component.html',
   styleUrl: './companies.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -62,14 +65,27 @@ export class CompaniesComponent implements OnInit {
     name: '',
     email: '',
     password: '',
-    role: 2, // Por defecto, el valor de rol es 2
-    img: '', // Imagen de la empresa (si es necesario)
+    role: 2,
+    img: '',
   };
 
   companies: CompanyResponse[] = [];
 
+  constructor(private confirmationService: ConfirmationService) {}
+
   get commonWords(): TCommonWords {
     return this.translateService.instant('commonWords');
+  }
+
+  confirmDelete(companyCode: string) {
+    this.confirmationService.confirm({
+      message: this.translateService.instant('commonWords.confirmDeleteMessage'),
+      header: this.translateService.instant('commonWords.confirmDelete'),
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.deleteCompany(companyCode);
+      }
+    });
   }
 
   ngOnInit() {
@@ -80,7 +96,6 @@ export class CompaniesComponent implements OnInit {
       this.loading.set(false);
       },
       error: (err) =>{
-        console.error('Error al cargar compañías', err),
         this.loading.set(false);
       }
     });
@@ -99,11 +114,10 @@ export class CompaniesComponent implements OnInit {
       !this.companyData.email ||
       !this.companyData.password
     ) {
-      // Si algún campo está vacío, muestra el Toast con el mensaje de error
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: 'Por favor, complete todos los campos.',
+        detail: this.translateService.instant('commonWords.notCompleteFields')
       });
       return;
     }
@@ -114,8 +128,13 @@ export class CompaniesComponent implements OnInit {
       this.companyData.password
     ) {
       this.companyService.addCompany(this.companyData).subscribe((response) => {
-        console.log('Compañía agregada exitosamente', response);
         this.companyDialogVisible.set(false);
+        this.refreshCompanies();
+        this.messageService.add({
+          severity: 'success',
+          summary: this.translateService.instant('commonWords.success'),
+          detail: this.translateService.instant('commonWords.addCompanyComplete')
+        });
         // Limpiar el formulario
         this.companyData = {
           id: '',
@@ -139,10 +158,31 @@ export class CompaniesComponent implements OnInit {
           this.loading.set(false);
         },
         error: (err) => {
-          console.error('Error al actualizar las compañías', err);
           this.loading.set(false);
         }
       });
     }, 2000);
+  }
+
+  deleteCompany(companyCode: string) {
+    this.companyService.deleteCompany(companyCode).subscribe({
+    next: () => {
+      this.messageService.add({
+        severity: 'success',
+        summary: this.translateService.instant('commonWords.success'),
+        detail: this.translateService.instant('commonWords.deleteCompanyComplete')
+      });
+
+      // Actualizamos la lista local eliminando la compañía borrada
+      this.companies = this.companies.filter(c => c.companyCode !== companyCode);
+    },
+    error: (error) => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: this.translateService.instant('commonWords.deleteCompany')
+      });
+    }
+  });
   }
 }

@@ -3,8 +3,12 @@ export type TCommonWords = {
   email: string;
   password: string;
   darkMode: string;
+  yes: string;
   lightMode: string;
   cancel: string;
+  delete: string;
+  confirmDelete: string;
+  confirmDeleteMessage: string;
   save: string;
   signIn: string;
   dashboard: string;

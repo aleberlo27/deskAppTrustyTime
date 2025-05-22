@@ -4,9 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { Company } from '../models/company.model';
 import { Observable } from 'rxjs';
 
-const baseUrl = environment.baseUrl
+const baseUrl = environment.baseUrl;
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class CompanyService {
   http = inject(HttpClient);
 
@@ -15,4 +15,8 @@ export class CompanyService {
     return this.http.post<Company>(`${baseUrl}/company`, companyData);
   }
 
+  //Función para eliminar la compañía
+  deleteCompany(companyCode: string): Observable<any> {
+    return this.http.delete(`${baseUrl}/company/code/${companyCode}`);
+  }
 }
