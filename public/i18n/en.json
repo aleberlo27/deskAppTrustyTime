@@ -5,6 +5,8 @@
     "yes": "Yes",
     "email": "Email",
     "password": "Password",
+    "passwordMismatch": "The passwords do not match.",
+    "confirmPassword": "Confirm password",
     "darkMode": "Dark mode",
     "lightMode": "Light mode",
     "cancel": "Cancel",

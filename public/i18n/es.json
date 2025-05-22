@@ -5,6 +5,8 @@
     "yes": "Si",
     "email": "Correo electrónico",
     "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "passwordMismatch": "Las contraseñas no coinciden.",
     "darkMode": "Modo oscuro",
     "lightMode": "Modo claro",
     "cancel": "Cancelar",

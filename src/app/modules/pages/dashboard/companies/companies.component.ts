@@ -65,6 +65,7 @@ export class CompaniesComponent implements OnInit {
     name: '',
     email: '',
     password: '',
+    password2: '',
     role: 2,
     img: '',
   };
@@ -112,7 +113,8 @@ export class CompaniesComponent implements OnInit {
       !this.companyData.name ||
       !this.companyData.companyCode ||
       !this.companyData.email ||
-      !this.companyData.password
+      !this.companyData.password ||
+    !this.companyData.password2
     ) {
       this.messageService.add({
         severity: 'error',
@@ -121,33 +123,37 @@ export class CompaniesComponent implements OnInit {
       });
       return;
     }
-    if (
-      this.companyData.name &&
-      this.companyData.companyCode &&
-      this.companyData.email &&
-      this.companyData.password
-    ) {
-      this.companyService.addCompany(this.companyData).subscribe((response) => {
-        this.companyDialogVisible.set(false);
-        this.refreshCompanies();
-        this.messageService.add({
-          severity: 'success',
-          summary: this.translateService.instant('commonWords.success'),
-          detail: this.translateService.instant('commonWords.addCompanyComplete')
-        });
-        // Limpiar el formulario
-        this.companyData = {
-          id: '',
-          companyCode: '',
-          name: '',
-          email: '',
-          password: '',
-          role: 2,
-          img: '',
-        };
+
+    if (this.companyData.password !== this.companyData.password2) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: this.translateService.instant('commonWords.passwordMismatch')
       });
+      return;
     }
+
+    this.companyService.addCompany(this.companyData).subscribe((response) => {
+      this.companyDialogVisible.set(false);
+      this.refreshCompanies();
+      this.messageService.add({
+        severity: 'success',
+        summary: this.translateService.instant('commonWords.success'),
+        detail: this.translateService.instant('commonWords.addCompanyComplete')
+      });
+      this.companyData = {
+        id: '',
+        companyCode: '',
+        name: '',
+        email: '',
+        password: '',
+        password2: '',
+        role: 2,
+        img: '',
+      };
+    });
   }
+
   // Método para actualizar la lista de empresas
   refreshCompanies() {
     this.loading.set(true);

@@ -2,6 +2,7 @@ export type TCommonWords = {
   login: string;
   email: string;
   password: string;
+  confirmPassword: string;
   darkMode: string;
   yes: string;
   lightMode: string;
