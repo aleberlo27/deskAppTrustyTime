@@ -73,8 +73,8 @@ En este proyecto, Electron se encarga de:
 ### 📦 Instalación
 
 ```bash
-git clone https://github.com/tuusuario/gestion-turnos-desktop.git
-cd gestion-turnos-desktop
+git clone https://github.com/aleberlo27/desAppTrustyTime.git
+cd desAppTrustyTime
 npm install
 ```
 
